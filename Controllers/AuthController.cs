@@ -19,12 +19,16 @@ namespace _2025_02_25_epita_faker.Controllers
             }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/json")]
         public IActionResult Login([FromBody] LoginRequestForm request)
         {
             if (request.Username == "admin" && request.Password == "password") // Replace with actual authentication
             {
                 var token = _jwtService.GenerateToken(request.Username);
                 return Ok(new { Token = token });
+             
             }
 
             return Unauthorized(new { Message = "Invalid username or password" });
