@@ -1,0 +1,6 @@
+@_2025_02_25_epita_faker_HostAddress = http://localhost:5191
+
+GET {{_2025_02_25_epita_faker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
