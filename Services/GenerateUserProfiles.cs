@@ -14,10 +14,12 @@ namespace _2025_02_25_epita_faker.Services
             {
                 userProfiles.Add(new UserProfile
                 {
-                    Name = Faker.Name.FullName(),
+                 
+                    First_Name = Faker.Name.First(),
+                    Last_Name = Faker.Name.Last(),
                     GovernmentId = Faker.Identification.UKNationalInsuranceNumber(),
                     Followers = Faker.RandomNumber.Next(0, 1000000),
-                    Location = Faker.Address.City(),
+                    Location = new() { City = Faker.Address.City(), Country = Faker.Address.Country() },
                     Biography = Faker.Lorem.Paragraph()
                 });
             }
