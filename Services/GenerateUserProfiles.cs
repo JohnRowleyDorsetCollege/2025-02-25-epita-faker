@@ -22,6 +22,7 @@ namespace _2025_02_25_epita_faker.Services
                     Location = new() { City = Faker.Address.City(), Country = Faker.Address.Country() },
                     Biography = Faker.Lorem.Paragraph()
                 });
+              Thread.Sleep(100);
             }
             return userProfiles;
         }

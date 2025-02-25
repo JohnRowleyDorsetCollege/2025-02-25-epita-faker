@@ -1,6 +1,8 @@
-﻿using _2025_02_25_epita_faker.Services;
+﻿using _2025_02_25_epita_faker.Models;
+using _2025_02_25_epita_faker.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace _2025_02_25_epita_faker.Controllers
 {
@@ -8,11 +10,26 @@ namespace _2025_02_25_epita_faker.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
+        private readonly IMemoryCache _cache;
+        public UserProfileController(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
         // GET: api/UserProfile
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(GenerateUserProfiles.GenerateProfiles(100));
+            const string cacheKey = "userProfiles";
+
+            if (!_cache.TryGetValue(cacheKey, out List<UserProfile> userProfiles))
+            {
+                userProfiles = GenerateUserProfiles.GenerateProfiles(100);
+                _cache.Set(cacheKey, userProfiles, TimeSpan.FromMinutes(1));
+            }
+
+
+           
+            return Ok(userProfiles);
         }
     }
 }
