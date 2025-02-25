@@ -1,3 +1,5 @@
+using _2025_02_25_epita_faker.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
+// Register JwtService
+builder.Services.AddSingleton<JwtService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
